@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href="/stylesheets/style.css" />
+
+    </head>
+    <body>
+        <div>GET test</div>
+        <form name = "input" action="/result_page" method = "get">
+            <select type="text" name="gender">
+                <option value='남'>남</option>
+                <option value='여'>여</option>
+            </select>
+            <input type="text" name="age" placeholder="나이를 입력해 주세요">
+            <input type="submit" value="Sumit">
+        </form>
+    </body>
+</html>
