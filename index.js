@@ -1,5 +1,6 @@
-const express = require('express')
-const app = express()
+
+const express = require('express');
+const app = express();
 
 app.use(express.json({
   limit:"50mb",
@@ -25,3 +26,7 @@ app.get('/test', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+//const Sequelize = require("sequelize");
+const db = require("./models");
+db.sequelize.sync();
