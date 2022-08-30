@@ -1,3 +1,8 @@
+/*
+postgre SQL DB를 연결하기 위한 정보 입력
+*/
+
+//DB생성
 module.exports = {
     HOST: "localhost",
     USER: "postgres",

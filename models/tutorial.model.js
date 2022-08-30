@@ -1,3 +1,5 @@
+//테이블에 대한 정리
+
 module.exports = (sequelize, Sequelize) => {
     const Tutorial = sequelize.define("tutorial", {
         title: {

@@ -1,6 +1,6 @@
 const db = require("..");
 const Tutorial = db.tutorials;
-const Op = db.Sequlize.Op;
+const Op = db.Sequlize.Op; //조건 걸때 사용
 
 exports.create = (req, res) => {
     if(!req.body.title){

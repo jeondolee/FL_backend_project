@@ -5,9 +5,10 @@ const request = require('request'); //api 사용
 
 const spawn = require("child_process").spawn;
 
+const db = require("../models");//이 models는 그냥 폴더일텐데 어떻게 모듈이 되는건가...? 아래를 보면 자동으로 index.js 를 가져오는듯
+const Tutorial = db.tutorials; //model/index.js의 변수 
 const Sequelize = require("sequelize");
-const db = require("../models");
-const Tutorial = db.tutorials;
+
 const Op = db.Sequelize.Op;
 
 router.get('/tutorial', async function(req, res, next){
