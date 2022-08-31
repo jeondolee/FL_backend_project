@@ -11,6 +11,14 @@ const Sequelize = require("sequelize");
 
 const Op = db.Sequelize.Op;
 
+router.get('/', async function(req, res, next){
+  var data = '접속'
+  console.log('접속 완료')
+
+  return res.send(data)
+})
+
+
 router.get('/tutorial', async function(req, res, next){
     if (!req.query.title) {
         res.status(400).send({

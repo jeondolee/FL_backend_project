@@ -7,6 +7,13 @@ const db = require("../models");
 const Tutorial = db.tutorials;
 const Op = db.Sequelize.Op;
 
+router.post('/', async function(req, res, next){
+    var data = '접속'
+    console.log('접속 완료')
+  
+    return res.send(data)
+  })
+
 router.post('/tutorial', async function(req, res, next){
     if (!req.body.title) {
         res.status(400).send({

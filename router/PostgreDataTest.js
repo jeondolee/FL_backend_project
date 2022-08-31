@@ -53,16 +53,16 @@ router.post('/member_join', async function(req, res, next){
     include: [
       { 
         model: order,
-        as : 'mem_no', 
+        //as : 'mem_no', 
         required : true,
         attributes: ['mem_no'],
-        // on: {
-        //   mem_no: Sequelize.where(
-        //     Sequelize.col("member.mem_no"),
-        //     Op.eq,
-        //     Sequelize.col("order.mem_no")
-        //   )
-        // }
+        on: {
+          mem_no: Sequelize.where(
+            Sequelize.col("member.mem_no"),
+            Op.eq,
+            Sequelize.col("order.mem_no")
+          )
+        }
       }
     ],
     // where: {
