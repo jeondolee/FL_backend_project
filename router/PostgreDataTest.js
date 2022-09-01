@@ -34,42 +34,48 @@ router.get('/member', async function(req, res, next){
 )
 //3.join
 router.post('/member_join', async function(req, res, next){
-  // 단어 찾아서 없애기
+  /*
+    [target 모델의 이름 + target 모델의 주요 키 이름] 로 자동 생성되는 것이 기본값입니다.
+    기본 명명 규칙은 camelCase이지만, source 모델이 underscored: true로 설정되어있다면, 외래 키는 snake_case로 명명됩니다.
+    as가 사용되면 여기서 정의된 이름이 target 모델의 이름으로 사용됩니다.
+    foreignKey 옵션을 주면, as 옵션을 모두 무시하고 foreignKey 옵션의 값에 따라 외래 키 컬럼을 이름짓습니다.
+  */
+  member.hasMany(order, {foreignKey: 'mem_no'})
+  order.belongsTo(member, {foreignKey: 'mem_no'})  
 
-  member.hasMany(order)
-  order.belongsTo(member,{
-    foreignKey: 'mem_no'
-  })
-  
+  // if (req.body.join != 'inner') {
+  //     res.status(400).send({
+  //       message: "join can not be empty!",
+  //     });
 
-  if (req.body.join != 'inner') {
-      res.status(400).send({
-        message: "join can not be empty!",
-      });
-      return;
+  //     return;
+  // }
+
+  if (JSON.parse(req.body.join) != 'inner') {
+    return res.status(400).send({
+      //JSON 타입이 아니라 그런가?
+      join_data: "join can not be empty!",
+    });
   }
 
   const join_data = await member.findAll({
     include: [
       { 
         model: order,
-        //as : 'mem_no', 
+        //as : 'order', 
         required : true,
-        attributes: ['mem_no'],
-        on: {
-          mem_no: Sequelize.where(
-            Sequelize.col("member.mem_no"),
-            Op.eq,
-            Sequelize.col("order.mem_no")
-          )
-        }
+        //attributes 없거나 on 없을 경우 에러 발생
+        // => 아 foregin key 지정해주니 해결
+        //attributes: ['order_no'],
+        // on: {
+        //   mem_no: Sequelize.where(
+        //     Sequelize.col("member.mem_no"),
+        //     Op.eq,
+        //     Sequelize.col("orders.mem_no")
+        //   )
+        // }
       }
-    ],
-    // where: {
-    //     mem_no : '10001'    
-    // //   // 왜 이걸 order에서는 memeberMemno로 받아먹을까?
-    // //   // order에 mem_no 있다고 있는데 왜.... 뭔가 order에 문제가 있을 것이다
-    // }      
+    ],      
   });
 
   return res.send(join_data);
