@@ -52,10 +52,14 @@ router.post('/member_join', async function(req, res, next){
   // }
 
   if (JSON.parse(req.body.join) != 'inner') {
-    return res.status(400).send({
+
+    return res.send({
       //JSON 타입이 아니라 그런가?
       join_data: "join can not be empty!",
+      
+      //return res.send(join_data);
     });
+
   }
 
   const join_data = await member.findAll({
