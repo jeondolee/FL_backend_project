@@ -26,15 +26,39 @@ router.post('/comp', async function(req, res, next){
         
     }
 
-    console.log(queryWhere.comp_id); 
-
     const visual_data = await visual.findAll({
       where: queryWhere,
       raw:true
       }
     );
+    
+    // 그냥 쿼리를 돌리는게 나을까?
+    // date 년도별로 - distict로 뽑고
+    // cnt 연도별 평균
 
-    return res.send(visual_data);
+    // 아니면 if문 걸어서 파싱?
+    // 
+
+    // 결국 하나의 colum이 되게끔 만들어서 줘야한다.
+    //=> 각 년도의 항목 갯수, cnt 평균
+    
+    const new_data = [];
+    const id = [];
+    const date = [];
+    const cnt = [];
+
+    new_data[0] = ['date', 'cnt'];
+    for (i = 1; i< visual_data.length; i++) {
+      new_data[i] = new Array();
+      new_data[i].push(visual_data[i].date_t);
+      // new_data[i].push(visual_data[i].comp_id);
+      new_data[i].push(Number(visual_data[i].total_cnt)); 
+    }
+
+    //console.log(new_data); 
+
+
+    return res.send(new_data);
     }
   )
 

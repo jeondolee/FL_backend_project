@@ -28,7 +28,7 @@ app.use(cors(corsOption))
 const postTest1 = require("./router/postTest1.js")
 const PostgreDataTest1 = require('./router/PostgreDataTest.js')
 const visual = require("./router/visual.js")
-const pythonGet = require("./router/pythonGet.js")
+const pythonGet = require("./router/pythonGet")
 
 app.use('/api/getTest1', getTest1)
 app.use('/api/postTest1', postTest1)
