@@ -11,3 +11,11 @@
 8/29, 8/30
   
   select, join Sequelize를 통해 구현
+
+9/7
+    
+  front에서 back의 파이썬 모델 실행
+    
+9/14
+
+  sql문을 통해 받은 데이터 시각화 
