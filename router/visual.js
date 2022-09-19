@@ -18,12 +18,9 @@ const Op = db.Sequelize.Op;
 
 router.post('/comp', async function(req, res, next){
 
-    //const comp_id = JSON.parse(req.body.comp_id)
-
     let queryWhere= {};
     queryWhere.comp_id = {
-        [Op.eq]:req.body.comp_id,
-        
+        [Op.eq]:req.body.comp_id
     }
 
     const visual_data = await visual.findAll({
@@ -32,20 +29,7 @@ router.post('/comp', async function(req, res, next){
       }
     );
     
-    // 그냥 쿼리를 돌리는게 나을까?
-    // date 년도별로 - distict로 뽑고
-    // cnt 연도별 평균
-
-    // 아니면 if문 걸어서 파싱?
-    // 
-
-    // 결국 하나의 colum이 되게끔 만들어서 줘야한다.
-    //=> 각 년도의 항목 갯수, cnt 평균
-    
     const new_data = [];
-    const id = [];
-    const date = [];
-    const cnt = [];
 
     new_data[0] = ['date', 'cnt'];
     for (i = 1; i< visual_data.length; i++) {
@@ -57,6 +41,44 @@ router.post('/comp', async function(req, res, next){
 
     //console.log(new_data); 
 
+
+    return res.send(new_data);
+    }
+  ),
+
+  router.post('/date', async function(req, res, next){
+
+    let queryWhere= {};
+    
+    queryWhere.date_t = {
+      [Op.and]:{
+        [Op.gt]: req.body.fromDate,
+        [Op.lte]: req.body.toDate
+      }
+    },
+    queryWhere.comp_id = {
+      [Op.eq]:req.body.comp_id
+    }
+
+    const visual_data = await visual.findAll({
+      where: queryWhere,
+      raw:true
+      }
+    );
+
+    const new_data = [];
+
+    new_data[0] = ['date', 'cnt'];
+    for (i = 0; i< visual_data.length; i++) {
+      new_data[i+1] = new Array();
+      new_data[i+1].push(visual_data[i].date_t);
+      // new_data[i].push(visual_data[i].comp_id);
+      new_data[i+1].push(Number(visual_data[i].total_cnt)); 
+    }
+
+    // if(new_data.length<1){
+    //   return NULL
+    // }
 
     return res.send(new_data);
     }
