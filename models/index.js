@@ -27,5 +27,7 @@ db.user_info = require("./user_info.js")(sequelize, Sequelize);
 db.member = require("./member.js")(sequelize, Sequelize); 
 db.order = require("./order.js")(sequelize, Sequelize); 
 db.visual_data = require("./visual_data.js")(sequelize, Sequelize)
+db.board = require("./board.js")(sequelize, Sequelize)
+
 
 module.exports = db;

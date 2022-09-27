@@ -17,8 +17,8 @@ const Op = db.Sequelize.Op;
 //   )
 
 router.post('/comp', async function(req, res, next){
-
     let queryWhere= {};
+    
     queryWhere.comp_id = {
         [Op.eq]:req.body.comp_id
     }
@@ -49,7 +49,7 @@ router.post('/comp', async function(req, res, next){
   router.post('/date', async function(req, res, next){
 
     let queryWhere= {};
-    
+
     queryWhere.date_t = {
       [Op.and]:{
         [Op.gt]: req.body.fromDate,
